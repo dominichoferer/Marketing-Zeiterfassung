@@ -1,16 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   --sidebar-width: 240px;
+  --heron-navy: #1a365d;
+  --heron-blue: #2c5282;
+  --heron-light: #4da3db;
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: #f8fafc;
+  font-family: 'Futura', 'Century Gothic', 'Trebuchet MS', 'Gill Sans', system-ui, sans-serif;
+  background-color: #f0f4f8;
   color: #1e293b;
+  letter-spacing: 0.01em;
 }
 
 /* Smooth transitions */
@@ -25,12 +28,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #e8edf3;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #b0bec9;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #7a90a4;
 }

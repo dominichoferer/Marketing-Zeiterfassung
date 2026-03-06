@@ -9,7 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Futura', 'Century Gothic', 'Trebuchet MS', 'Gill Sans', 'system-ui', 'sans-serif'],
+      },
+      colors: {
+        heron: {
+          navy: '#1a365d',
+          blue: '#2c5282',
+          light: '#4da3db',
+          bg: '#f0f4f8',
+        },
       },
     },
   },
