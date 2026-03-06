@@ -45,7 +45,7 @@ Regeln:
 
   try {
     const message = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+      model: 'claude-haiku-4-5',
       max_tokens: 300,
       system: systemPrompt,
       messages: [{ role: 'user', content: input.trim() }],
@@ -67,8 +67,9 @@ Regeln:
     return NextResponse.json(result);
   } catch (err) {
     console.error('KI-Eingabe Fehler:', err);
+    const message = err instanceof Error ? err.message : String(err);
     return NextResponse.json(
-      { error: 'KI-Verarbeitung fehlgeschlagen. Bitte manuell eintragen.' },
+      { error: `KI-Verarbeitung fehlgeschlagen: ${message}` },
       { status: 500 }
     );
   }
