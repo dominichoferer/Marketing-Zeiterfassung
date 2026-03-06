@@ -39,7 +39,7 @@ export default function Navbar({ profile }: NavbarProps) {
       >
         <div className="relative w-9 h-9 flex-shrink-0">
           <Image
-            src="/heron-logo.png"
+            src="https://iikcqzirzajynkfuimfx.supabase.co/storage/v1/object/public/Logos/Heron_Logo_NEU_Innovation_White_2025.png"
             alt="Heron Logo"
             fill
             className="object-contain"
