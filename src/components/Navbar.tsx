@@ -58,8 +58,8 @@ export default function Navbar({ profile }: NavbarProps) {
           <Image
             src="/logo.png"
             alt="Heron Marketing"
-            width={110}
-            height={44}
+            width={100}
+            height={32}
             className="object-contain"
             priority
           />
