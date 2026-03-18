@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, PlusCircle, List, LogOut } from 'lucide-react';
+import { LayoutDashboard, PlusCircle, List, Download, LogOut } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import type { Profile } from '@/types/database';
 import clsx from 'clsx';
@@ -13,8 +13,9 @@ interface NavbarProps {
 }
 
 const leftNav  = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard', label: 'Dashboard',    icon: LayoutDashboard },
   { href: '/eintraege', label: 'Alle Einträge', icon: List },
+  { href: '/export',    label: 'Export',        icon: Download },
 ];
 
 const rightNav = [
