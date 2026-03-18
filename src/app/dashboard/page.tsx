@@ -1,15 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import AppLayout from '@/components/AppLayout';
 import DashboardStats from '@/components/DashboardStats';
+import KiBulkModal from '@/components/KiBulkModal';
 import Link from 'next/link';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, Sparkles } from 'lucide-react';
 
 export default function DashboardPage() {
+  const [bulkOpen, setBulkOpen] = useState(false);
+
   return (
     <AppLayout>
       {(profile) => (
         <>
+          {bulkOpen && <KiBulkModal profile={profile} onClose={() => setBulkOpen(false)} />}
+
           {/* ── Hero Banner ── */}
           <div className="relative h-[500px] w-full overflow-hidden">
 
@@ -41,13 +47,22 @@ export default function DashboardPage() {
               <p className="text-brand-200 text-lg font-light mb-10">
                 Hier ist deine Teamübersicht.
               </p>
-              <Link
-                href="/neu"
-                className="flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 px-6 py-3 rounded-xl text-sm font-semibold shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"
-              >
-                <PlusCircle size={17} />
-                Neuer Eintrag
-              </Link>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setBulkOpen(true)}
+                  className="flex items-center gap-2 bg-violet-500/90 hover:bg-violet-500 text-white px-5 py-3 rounded-xl text-sm font-semibold shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5 cursor-pointer"
+                >
+                  <Sparkles size={16} />
+                  KI-Bulk
+                </button>
+                <Link
+                  href="/neu"
+                  className="flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 px-6 py-3 rounded-xl text-sm font-semibold shadow-lg transition-all hover:shadow-xl hover:-translate-y-0.5"
+                >
+                  <PlusCircle size={17} />
+                  Neuer Eintrag
+                </Link>
+              </div>
             </div>
           </div>
 
