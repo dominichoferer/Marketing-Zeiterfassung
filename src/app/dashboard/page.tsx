@@ -21,10 +21,10 @@ export default function DashboardPage() {
               }}
             />
 
-            {/* Optional: hero.jpg in /public/ ablegen – wird automatisch verwendet */}
+            {/* Hintergrundbild mit geringer Deckkraft */}
             <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/hero.jpg')" }}
+              className="absolute inset-0 bg-cover bg-center opacity-20"
+              style={{ backgroundImage: "url('/nav-bg.jpg')" }}
             />
 
             {/* Dunkles Overlay */}

@@ -31,15 +31,7 @@ export default function Navbar({ profile }: NavbarProps) {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-20 z-50 shadow-md overflow-hidden">
-      {/* Hintergrundbild – leicht durchscheinend */}
-      <div
-        className="absolute inset-0 bg-cover bg-center scale-105"
-        style={{ backgroundImage: "url('/nav-bg.jpg')" }}
-      />
-      {/* Brand-Blau Overlay – lässt Bild leicht durchscheinen */}
-      <div className="absolute inset-0 bg-brand-600/88" />
-
+    <header className="fixed top-0 left-0 right-0 h-20 bg-brand-600 z-50 shadow-md">
       <div className="flex items-center h-full relative px-6">
 
         {/* Left Navigation */}
