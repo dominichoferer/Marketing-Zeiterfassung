@@ -1,4 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* FuturaPT – lokale Schrift */
+@font-face {
+  font-family: 'FuturaPT';
+  src: url('/fonts/FuturaPT-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FuturaPT';
+  src: url('/fonts/FuturaPT-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FuturaPT';
+  src: url('/fonts/FuturaPT-Demi.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FuturaPT';
+  src: url('/fonts/FuturaPT-BoldObl.otf') format('opentype');
+  font-weight: 700;
+  font-style: oblique;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,9 +37,11 @@
 }
 
 body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: #f8fafc;
-  color: #1e293b;
+  font-family: 'FuturaPT', 'Futura', system-ui, sans-serif;
+  background-color: #f4f8fc;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Smooth transitions */
@@ -25,12 +56,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #eaf1f8;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #a8c8e0;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #005a9a;
 }

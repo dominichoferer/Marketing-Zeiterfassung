@@ -49,19 +49,21 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
 
   const totalMinutes = entries.reduce((s, e) => s + e.duration_minutes, 0);
 
+  const selectClass = 'border border-brand-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-400 bg-white';
+
   return (
     <div className="space-y-4">
       {/* Filter Row */}
-      <div className="bg-white rounded-xl border border-slate-200 p-4">
+      <div className="bg-white rounded-xl border border-brand-100 p-4">
         <div className="flex items-center gap-2 mb-3">
-          <Filter size={16} className="text-slate-400" />
+          <Filter size={16} className="text-brand-400" />
           <span className="text-sm font-medium text-slate-600">Filter</span>
         </div>
         <div className="flex flex-wrap gap-3">
           <select
             value={filterCompany}
             onChange={(e) => setFilterCompany(e.target.value)}
-            className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className={selectClass}
           >
             <option value="">Alle Firmen</option>
             {COMPANIES.map((c) => (
@@ -72,7 +74,7 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
           <select
             value={filterStaff}
             onChange={(e) => setFilterStaff(e.target.value)}
-            className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className={selectClass}
           >
             <option value="">Alle Mitarbeiter</option>
             {STAFF.map((s) => (
@@ -85,16 +87,14 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
               type="date"
               value={filterFrom}
               onChange={(e) => setFilterFrom(e.target.value)}
-              className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Von"
+              className={selectClass}
             />
             <span className="text-slate-400 text-sm">–</span>
             <input
               type="date"
               value={filterTo}
               onChange={(e) => setFilterTo(e.target.value)}
-              className="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Bis"
+              className={selectClass}
             />
           </div>
 
@@ -106,7 +106,7 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
                 setFilterFrom('');
                 setFilterTo('');
               }}
-              className="text-sm text-slate-400 hover:text-slate-600 underline"
+              className="text-sm text-brand-400 hover:text-brand-600 underline cursor-pointer"
             >
               Filter zurücksetzen
             </button>
@@ -116,7 +116,7 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
 
       {/* Summary */}
       <div className="flex items-center justify-between px-1">
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 font-light">
           {entries.length} Eintrag{entries.length !== 1 ? 'e' : ''}
         </p>
         <p className="text-sm font-semibold text-slate-700">
@@ -125,19 +125,19 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl border border-brand-100 overflow-hidden">
         {loading ? (
           <div className="p-10 flex justify-center">
-            <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-4 border-brand-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : entries.length === 0 ? (
-          <div className="p-10 text-center text-slate-400 text-sm">
+          <div className="p-10 text-center text-slate-400 text-sm font-light">
             Keine Einträge gefunden
           </div>
         ) : (
           <table className="w-full">
             <thead>
-              <tr className="border-b border-slate-100 bg-slate-50">
+              <tr className="border-b border-brand-100 bg-brand-50">
                 <th className="text-left text-xs font-semibold text-slate-500 px-5 py-3">Datum</th>
                 <th className="text-left text-xs font-semibold text-slate-500 px-3 py-3">Firma</th>
                 <th className="text-left text-xs font-semibold text-slate-500 px-3 py-3">Tätigkeit</th>
@@ -146,9 +146,9 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
                 <th className="px-3 py-3" />
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-brand-50">
               {entries.map((entry) => (
-                <tr key={entry.id} className="hover:bg-slate-50 group">
+                <tr key={entry.id} className="hover:bg-brand-50 group transition-colors">
                   <td className="px-5 py-3 text-sm text-slate-500 whitespace-nowrap">
                     {formatDate(entry.date)}
                   </td>
@@ -169,7 +169,7 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
                       <button
                         onClick={() => handleDelete(entry.id)}
                         disabled={deleting === entry.id}
-                        className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500 transition-all p-1 rounded"
+                        className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500 transition-all p-1 rounded cursor-pointer"
                         title="Löschen"
                       >
                         <Trash2 size={14} />

@@ -70,24 +70,26 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-brand-50">
+        <div className="w-8 h-8 border-4 border-brand-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (needsSetup) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 w-full max-w-sm">
+      <div className="min-h-screen flex items-center justify-center bg-brand-50">
+        <div className="bg-white rounded-2xl shadow-sm border border-brand-100 p-8 w-full max-w-sm">
           <h2 className="text-xl font-semibold text-slate-800 mb-2">Willkommen!</h2>
-          <p className="text-slate-500 text-sm mb-6">Bitte wähle deinen Namen aus dem Team-Liste.</p>
+          <p className="text-slate-500 text-sm mb-6 font-light">
+            Bitte wähle deinen Namen aus der Team-Liste.
+          </p>
 
           <label className="block text-sm font-medium text-slate-700 mb-2">Dein Name</label>
           <select
             value={selectedStaff}
             onChange={(e) => setSelectedStaff(e.target.value)}
-            className="w-full border border-slate-200 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+            className="w-full border border-brand-200 rounded-lg px-3 py-2 text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 mb-4"
           >
             <option value="">– Name wählen –</option>
             {STAFF.map((s) => (
@@ -98,7 +100,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
           <button
             onClick={handleSetup}
             disabled={!selectedStaff || saving}
-            className="w-full bg-blue-500 hover:bg-blue-600 disabled:opacity-50 text-white font-medium py-2 rounded-lg transition-colors"
+            className="w-full bg-brand-600 hover:bg-brand-700 disabled:opacity-50 text-white font-medium py-2 rounded-lg transition-colors cursor-pointer"
           >
             {saving ? 'Speichern…' : 'Weiter'}
           </button>

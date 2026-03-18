@@ -33,7 +33,6 @@ export default function DashboardStats() {
     setLoading(false);
   }
 
-  // Stunden pro Firma aggregieren
   const byCompany = COMPANIES.map((c) => {
     const total = entries
       .filter((e) => e.company_id === c.id)
@@ -44,8 +43,6 @@ export default function DashboardStats() {
 
   const totalMinutes = entries.reduce((sum, e) => sum + e.duration_minutes, 0);
   const maxMinutes = byCompany[0]?.totalMinutes ?? 1;
-
-  // Heutige Einträge
   const todayEntries = entries.filter((e) => e.date === todayISO());
 
   return (
@@ -53,7 +50,7 @@ export default function DashboardStats() {
       {/* Stats Row */}
       <div className="grid grid-cols-3 gap-4">
         <StatCard
-          icon={<Clock className="text-blue-500" size={20} />}
+          icon={<Clock className="text-brand-600" size={20} />}
           label={period === 'week' ? 'Diese Woche' : 'Diesen Monat'}
           value={formatDuration(totalMinutes)}
         />
@@ -72,13 +69,13 @@ export default function DashboardStats() {
       {/* Period Toggle */}
       <div className="flex items-center justify-between">
         <h2 className="text-slate-800 font-semibold text-base">Stunden nach Firma</h2>
-        <div className="flex rounded-lg border border-slate-200 overflow-hidden text-sm">
+        <div className="flex rounded-lg border border-brand-200 overflow-hidden text-sm">
           {(['week', 'month'] as Period[]).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
-              className={`px-3 py-1.5 font-medium transition-colors ${
-                period === p ? 'bg-slate-800 text-white' : 'bg-white text-slate-500 hover:bg-slate-50'
+              className={`px-3 py-1.5 font-medium transition-colors cursor-pointer ${
+                period === p ? 'bg-brand-600 text-white' : 'bg-white text-slate-500 hover:bg-brand-50'
               }`}
             >
               {p === 'week' ? 'Woche' : 'Monat'}
@@ -88,17 +85,17 @@ export default function DashboardStats() {
       </div>
 
       {/* Company Bars */}
-      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+      <div className="bg-white rounded-xl border border-brand-100 overflow-hidden">
         {loading ? (
           <div className="p-8 flex justify-center">
-            <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-4 border-brand-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : byCompany.length === 0 ? (
-          <div className="p-8 text-center text-slate-400 text-sm">
+          <div className="p-8 text-center text-slate-400 text-sm font-light">
             Noch keine Einträge in diesem Zeitraum
           </div>
         ) : (
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-brand-50">
             {byCompany.map((c) => (
               <div key={c.id} className="px-5 py-4">
                 <div className="flex items-center justify-between mb-2">
@@ -107,7 +104,7 @@ export default function DashboardStats() {
                     {formatDuration(c.totalMinutes)}
                   </span>
                 </div>
-                <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div className="h-2 bg-brand-50 rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-500"
                     style={{
@@ -126,7 +123,7 @@ export default function DashboardStats() {
       {todayEntries.length > 0 && (
         <>
           <h2 className="text-slate-800 font-semibold text-base">Heute</h2>
-          <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
+          <div className="bg-white rounded-xl border border-brand-100 divide-y divide-brand-50">
             {todayEntries.map((entry) => (
               <div key={entry.id} className="px-5 py-3 flex items-center gap-3">
                 <CompanyBadge companyId={entry.company_id} size="sm" />
@@ -144,12 +141,12 @@ export default function DashboardStats() {
 
 function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-4">
+    <div className="bg-white rounded-xl border border-brand-100 p-4">
       <div className="flex items-center gap-2 mb-1">
         {icon}
         <span className="text-xs text-slate-500 font-medium">{label}</span>
       </div>
-      <p className="text-xl font-bold text-slate-800">{value}</p>
+      <p className="text-xl font-semibold text-slate-800">{value}</p>
     </div>
   );
 }

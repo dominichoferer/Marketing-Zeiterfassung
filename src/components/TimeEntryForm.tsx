@@ -61,7 +61,6 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
       }
 
       setKiResult(data);
-      // Felder mit KI-Ergebnis befüllen
       setDescription(data.description ?? '');
       if (data.company_id) setCompanyId(data.company_id);
       if (data.duration_minutes) {
@@ -104,16 +103,16 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
   const isFormValid = description.trim() && companyId && durationMinutes;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-brand-100 overflow-hidden">
       {/* Mode Toggle */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-brand-100">
         <button
           onClick={() => setMode('ki')}
           className={clsx(
-            'flex-1 flex items-center justify-center gap-2 py-4 text-sm font-medium transition-colors',
+            'flex-1 flex items-center justify-center gap-2 py-4 text-sm font-medium transition-colors cursor-pointer',
             mode === 'ki'
               ? 'bg-violet-50 text-violet-700 border-b-2 border-violet-500'
-              : 'text-slate-500 hover:bg-slate-50'
+              : 'text-slate-500 hover:bg-brand-50'
           )}
         >
           <Sparkles size={16} />
@@ -122,10 +121,10 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
         <button
           onClick={() => setMode('manual')}
           className={clsx(
-            'flex-1 flex items-center justify-center gap-2 py-4 text-sm font-medium transition-colors',
+            'flex-1 flex items-center justify-center gap-2 py-4 text-sm font-medium transition-colors cursor-pointer',
             mode === 'manual'
-              ? 'bg-slate-50 text-slate-800 border-b-2 border-slate-800'
-              : 'text-slate-500 hover:bg-slate-50'
+              ? 'bg-brand-50 text-brand-800 border-b-2 border-brand-600'
+              : 'text-slate-500 hover:bg-brand-50'
           )}
         >
           <Pencil size={16} />
@@ -140,7 +139,7 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
             <label className="block text-sm font-medium text-slate-700 mb-1.5">
               Stichworte eingeben
             </label>
-            <p className="text-xs text-slate-400 mb-2">
+            <p className="text-xs text-slate-400 mb-2 font-light">
               z.B. „Robotunits Homepage Text 2h" oder „Servus Newsletter 30min"
             </p>
             <div className="flex gap-2">
@@ -150,12 +149,12 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
                 onChange={(e) => setKiInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleKISubmit()}
                 placeholder="Tätigkeit, Firma, Dauer…"
-                className="flex-1 border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
+                className="flex-1 border border-brand-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-400"
               />
               <button
                 onClick={handleKISubmit}
                 disabled={kiLoading || !kiInput.trim()}
-                className="bg-violet-500 hover:bg-violet-600 disabled:opacity-50 text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
+                className="bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors cursor-pointer"
               >
                 {kiLoading ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
                 {kiLoading ? 'Analysiere…' : 'Analysieren'}
@@ -174,7 +173,7 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
                     KI-Ergebnis {kiResult.confidence >= 0.7 ? '(sicher)' : '(bitte prüfen)'}
                   </span>
                 </div>
-                <p className="text-xs text-violet-600">
+                <p className="text-xs text-violet-600 font-light">
                   Felder wurden unten vorausgefüllt. Du kannst sie noch bearbeiten.
                 </p>
               </div>
@@ -192,7 +191,7 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="z.B. Texte für Homepage überarbeitet"
-            className="w-full border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full border border-brand-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
           />
         </div>
 
@@ -207,8 +206,8 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
                 key={c.id}
                 onClick={() => setCompanyId(c.id)}
                 className={clsx(
-                  'px-3 py-1.5 rounded-full text-sm font-semibold border-2 transition-all',
-                  companyId === c.id ? 'ring-2 ring-offset-2 ring-slate-400 scale-105' : 'opacity-80 hover:opacity-100'
+                  'px-3 py-1.5 rounded-full text-sm font-semibold border-2 transition-all cursor-pointer',
+                  companyId === c.id ? 'ring-2 ring-offset-2 ring-brand-400 scale-105' : 'opacity-80 hover:opacity-100'
                 )}
                 style={{
                   backgroundColor: c.color,
@@ -233,10 +232,10 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
                 key={opt.minutes}
                 onClick={() => setDurationMinutes(opt.minutes)}
                 className={clsx(
-                  'px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors',
+                  'px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors cursor-pointer',
                   durationMinutes === opt.minutes
-                    ? 'bg-slate-800 text-white border-slate-800'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                    ? 'bg-brand-600 text-white border-brand-600'
+                    : 'bg-white text-slate-600 border-brand-200 hover:border-brand-400'
                 )}
               >
                 {opt.label}
@@ -252,7 +251,7 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
-            className="border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border border-brand-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400"
           />
         </div>
 
@@ -261,12 +260,12 @@ export default function TimeEntryForm({ profile }: TimeEntryFormProps) {
           onClick={handleSave}
           disabled={!isFormValid || saving || saved}
           className={clsx(
-            'w-full py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all',
+            'w-full py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer',
             saved
               ? 'bg-emerald-500 text-white'
               : isFormValid
-              ? 'bg-slate-800 hover:bg-slate-700 text-white'
-              : 'bg-slate-100 text-slate-400 cursor-not-allowed'
+              ? 'bg-brand-600 hover:bg-brand-700 text-white'
+              : 'bg-brand-50 text-brand-300 cursor-not-allowed'
           )}
         >
           {saved ? (
