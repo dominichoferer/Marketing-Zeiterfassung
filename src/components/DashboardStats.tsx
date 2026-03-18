@@ -12,7 +12,7 @@ import { Clock, TrendingUp } from 'lucide-react';
 export default function DashboardStats() {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState<PeriodState>({ mode: 'week', offset: 0 });
+  const [period, setPeriod] = useState<PeriodState>({ mode: 'month', offset: 0 });
 
   const range = getPeriodRange(period);
 

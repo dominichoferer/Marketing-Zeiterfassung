@@ -12,7 +12,7 @@ import { Trash2, Filter } from 'lucide-react';
 export default function EntryList({ currentUserId }: { currentUserId: string }) {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState<PeriodState>({ mode: 'month', offset: 0 });
+  const [period, setPeriod] = useState<PeriodState>({ mode: 'today', offset: 0 });
   const [filterCompany, setFilterCompany] = useState('');
   const [filterStaff, setFilterStaff] = useState('');
   const [deleting, setDeleting] = useState<string | null>(null);
