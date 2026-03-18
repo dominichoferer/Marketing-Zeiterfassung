@@ -12,9 +12,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <AuthGuard>
       {(profile) => (
-        <div className="flex min-h-screen">
+        <div className="min-h-screen bg-slate-50">
           <Navbar profile={profile} />
-          <main className="ml-[240px] flex-1 p-8">
+          {/* pt-16 = Navbar-Höhe (64px) */}
+          <main className="pt-16">
             {children(profile)}
           </main>
         </div>
