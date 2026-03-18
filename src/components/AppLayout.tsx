@@ -14,8 +14,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
       {(profile) => (
         <div className="min-h-screen bg-slate-50">
           <Navbar profile={profile} />
-          {/* pt-16 = Navbar-Höhe (64px) */}
-          <main className="pt-16">
+          {/* pt-20 = Navbar-Höhe (80px) */}
+          <main className="pt-20">
             {children(profile)}
           </main>
         </div>
