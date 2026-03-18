@@ -1,34 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import AuthGuard from '@/components/AuthGuard';
-import Navbar from '@/components/Navbar';
+import AppLayout from '@/components/AppLayout';
 import EntryList from '@/components/EntryList';
 import Link from 'next/link';
 import { PlusCircle } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
 
 export default function EintraegePage() {
   return (
-    <AuthGuard>
-      {(profile) => <EintraegeContent profile={profile} />}
-    </AuthGuard>
-  );
-}
-
-function EintraegeContent({ profile }: { profile: { id: string; staff_name: string | null; staff_code: string | null; created_at: string } }) {
-  const [userId, setUserId] = useState('');
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) setUserId(session.user.id);
-    });
-  }, []);
-
-  return (
-    <div className="flex min-h-screen">
-      <Navbar profile={profile} />
-      <main className="ml-[240px] flex-1 p-8">
+    <AppLayout>
+      {(profile) => (
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-8">
             <div>
@@ -46,9 +26,9 @@ function EintraegeContent({ profile }: { profile: { id: string; staff_name: stri
             </Link>
           </div>
 
-          {userId && <EntryList currentUserId={userId} />}
+          <EntryList currentUserId={profile.id} />
         </div>
-      </main>
-    </div>
+      )}
+    </AppLayout>
   );
 }
