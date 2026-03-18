@@ -33,7 +33,7 @@
 @tailwind utilities;
 
 :root {
-  --sidebar-width: 240px;
+  --navbar-height: 80px;
 }
 
 body {
