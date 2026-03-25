@@ -7,7 +7,8 @@ import { formatDuration, formatDate, getPeriodRange, type PeriodState } from '@/
 import CompanyBadge from './CompanyBadge';
 import PeriodSelector from './PeriodSelector';
 import type { TimeEntry } from '@/types/database';
-import { Trash2, Filter } from 'lucide-react';
+import { Trash2, Filter, Pencil } from 'lucide-react';
+import EditEntryModal from './EditEntryModal';
 
 export default function EntryList({ currentUserId }: { currentUserId: string }) {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
@@ -16,6 +17,7 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
   const [filterCompany, setFilterCompany] = useState('');
   const [filterStaff, setFilterStaff] = useState('');
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [editing, setEditing]   = useState<TimeEntry | null>(null);
 
   const range = getPeriodRange(period);
 
@@ -54,6 +56,15 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
 
   return (
     <div className="space-y-4">
+      {editing && (
+        <EditEntryModal
+          entry={editing}
+          onClose={() => setEditing(null)}
+          onSaved={(updated) => {
+            setEntries((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
+          }}
+        />
+      )}
       {/* Zeitraum + Filter */}
       <div className="bg-white rounded-xl border border-brand-100 p-4 space-y-3">
         {/* PeriodSelector */}
@@ -148,14 +159,23 @@ export default function EntryList({ currentUserId }: { currentUserId: string }) 
                   <td className="px-3 py-3 text-sm text-slate-500">{entry.staff_name}</td>
                   <td className="px-3 py-3 text-right">
                     {entry.user_id === currentUserId && (
-                      <button
-                        onClick={() => handleDelete(entry.id)}
-                        disabled={deleting === entry.id}
-                        className="opacity-0 group-hover:opacity-100 text-slate-300 hover:text-red-500 transition-all p-1 rounded cursor-pointer"
-                        title="Löschen"
-                      >
-                        <Trash2 size={14} />
-                      </button>
+                      <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-all">
+                        <button
+                          onClick={() => setEditing(entry)}
+                          className="text-slate-300 hover:text-brand-500 transition-colors p-1 rounded cursor-pointer"
+                          title="Bearbeiten"
+                        >
+                          <Pencil size={14} />
+                        </button>
+                        <button
+                          onClick={() => handleDelete(entry.id)}
+                          disabled={deleting === entry.id}
+                          className="text-slate-300 hover:text-red-500 transition-colors p-1 rounded cursor-pointer"
+                          title="Löschen"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
                     )}
                   </td>
                 </tr>
