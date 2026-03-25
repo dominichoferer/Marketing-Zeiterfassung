@@ -15,10 +15,22 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const client = new Anthropic({ apiKey });
 
+  // Today's date passed from client so relative dates can be resolved
+  const todayISO: string = body.today || new Date().toISOString().split('T')[0];
+  const todayDate = new Date(todayISO + 'T00:00:00');
+  const yesterdayDate = new Date(todayDate); yesterdayDate.setDate(todayDate.getDate() - 1);
+  const dayBeforeDate = new Date(todayDate); dayBeforeDate.setDate(todayDate.getDate() - 2);
+  const yesterdayISO = yesterdayDate.toISOString().split('T')[0];
+  const dayBeforeISO = dayBeforeDate.toISOString().split('T')[0];
+
   const companiesList = COMPANIES.map((c) => `- ${c.name} (ID: ${c.id})`).join('\n');
 
   const systemPrompt = `Du bist ein Assistent für ein Marketing-Zeiterfassungstool.
 Extrahiere aus dem Text oder Bild mehrere Zeiteinträge und gib sie als JSON-Array zurück.
+
+Heute ist: ${todayISO}
+Gestern war: ${yesterdayISO}
+Vorgestern war: ${dayBeforeISO}
 
 Verfügbare Firmen:
 ${companiesList}
@@ -29,7 +41,7 @@ Antworte NUR mit einem validen JSON-Array in diesem Format:
     "description": "Professionelle Tätigkeitsbeschreibung (1 Satz, Deutsch)",
     "company_id": "Firmen-ID (z.B. SEI, ROB, HIF) oder null wenn unklar",
     "duration_minutes": <Zahl in Minuten oder null>,
-    "date": null
+    "date": "YYYY-MM-DD oder null"
   }
 ]
 
@@ -38,7 +50,9 @@ Regeln:
 - duration_minutes: "2h"=120, "30min"=30, "1,5h"=90, "45'"=45, "1:30"=90
 - Firma aus Kontext oder Name erkennen (z.B. "ROB" oder "Robotunits" → company_id: "ROB")
 - description: klar, professionell, auf Deutsch
-- date: nur setzen wenn explizit erkennbar (z.B. "13.3." → "2026-03-13"), sonst null`;
+- date: relatives Datum auflösen: "heute"→"${todayISO}", "gestern"→"${yesterdayISO}", "vorgestern"→"${dayBeforeISO}"
+- date: explizites Datum setzen (z.B. "13.3." → "${todayDate.getFullYear()}-03-13")
+- date: wenn kein Datum erkennbar → null`;
 
   try {
     let message;

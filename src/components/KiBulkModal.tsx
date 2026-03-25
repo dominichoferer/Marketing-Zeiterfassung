@@ -87,14 +87,14 @@ export default function KiBulkModal({ onClose, profile }: KiBulkModalProps) {
 
       if (activeTab === 'image' && imageFile) {
         const base64 = await fileToBase64(imageFile);
-        body = { imageBase64: base64, mimeType: imageFile.type };
+        body = { imageBase64: base64, mimeType: imageFile.type, today };
       } else {
         if (rawText.trim().length < 3) {
           setError('Bitte mindestens eine Zeile eingeben.');
           setStep('input');
           return;
         }
-        body = { text: rawText };
+        body = { text: rawText, today };
       }
 
       const res = await fetch('/api/ki-bulk', {
